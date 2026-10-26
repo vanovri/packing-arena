@@ -1,0 +1,72 @@
+initial trial 1 scarlet: done
+initial trial 1 cobalt: done
+initial trial 1 jade: done
+initial trial 2 cobalt: done
+initial trial 2 jade: done
+initial trial 2 scarlet: done
+initial trial 3 jade: done
+initial trial 3 scarlet: done
+initial trial 3 cobalt: done
+final trial 1 scarlet: done
+final trial 1 cobalt: done
+final trial 1 jade: done
+final trial 2 cobalt: done
+final trial 2 jade: done
+final trial 2 scarlet: done
+final trial 3 jade: done
+final trial 3 scarlet: done
+final trial 3 cobalt: done
+{
+  "initial": [
+    {
+      "name": "jade",
+      "invalid": 0,
+      "total_bins": 3321,
+      "median_ms": 0.12434999999999999,
+      "max_ms": 747.8448,
+      "source_sha256": "4a9bf70b3fde97d7c2deda91d77478cd4e9e4ffbc5e15677fdbe2de432964ec7"
+    },
+    {
+      "name": "scarlet",
+      "invalid": 0,
+      "total_bins": 3321,
+      "median_ms": 0.46635,
+      "max_ms": 560.5618,
+      "source_sha256": "2fabb1b2e5de8acbdc36216ae635c0bcd7f01b7921c9f47a3084c7eff19c334e"
+    },
+    {
+      "name": "cobalt",
+      "invalid": 0,
+      "total_bins": 3321,
+      "median_ms": 0.6011500000000001,
+      "max_ms": 370.5533,
+      "source_sha256": "3d376ea43ebb0305afa15baeec55abd92fa7dd8b327d284ceb6eaa0735f1a73d"
+    }
+  ],
+  "final": [
+    {
+      "name": "jade",
+      "invalid": 0,
+      "total_bins": 3321,
+      "median_ms": 0.1346,
+      "max_ms": 959.5652,
+      "source_sha256": "173b92b0685096cc486e6325baae07369cf5b36136790ac44df9edd06f8e7ad9"
+    },
+    {
+      "name": "scarlet",
+      "invalid": 0,
+      "total_bins": 3321,
+      "median_ms": 0.2508,
+      "max_ms": 421.1692,
+      "source_sha256": "db28dad9ad6cd0eccab2132fd63ac4000a5e1d3bf285213c55aa867675fb5b08"
+    },
+    {
+      "name": "cobalt",
+      "invalid": 1,
+      "total_bins": 3234,
+      "median_ms": 0.4188,
+      "max_ms": 1632.2889,
+      "source_sha256": "22f90f903ccf2a0fbfb889eed3c998b8ad360ad181c9df4b4df32de443a0d56e"
+    }
+  ]
+}

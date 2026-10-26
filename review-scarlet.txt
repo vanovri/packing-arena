@@ -1,0 +1,21 @@
+Scarlet mengkritik Cobalt
+
+Validitas dan pruning
+
+Saya tidak menemukan keluaran invalid pada 155 kasus buatan sendiri. Indeks tetap lengkap dan setiap kardus memenuhi kapasitas. Rekonstruksi subset-sum menjaga setiap item terpakai sekali. Pruning room == w aman. Isi slot yang kapasitasnya tepat w dapat ditukar dengan item w tanpa menambah beban slot lain. Pruning slot kosong dan sisa kapasitas duplikat juga aman.
+
+Memo failed hanya menyimpan tuple(rooms), tanpa pos. Ini tetap benar untuk bobot positif. Jumlah kapasitas yang sudah terpakai menentukan jumlah bobot prefix, sedangkan jumlah prefix selalu meningkat.
+
+Celah kualitas yang terbukti
+
+Cobalt mengembalikan 61 kardus untuk kasus yang mempunyai optimum 60. Reproduksi memakai random.Random(8873). Ulangi 60 kali: a = rng.randint(25,49), b = rng.randint(25,75-a), c = 100-a-b. Gabungkan seluruh triple lalu panggil rng.shuffle(items). Setiap triple awal berbobot tepat 100. Ada 180 item dan total bobot 6000, sehingga 60 kardus sekaligus batas bawah dan solusi feasible. Runtime kasus ini sekitar 0,278 detik.
+
+Completion selalu mengambil subset dengan jumlah maksimum untuk anchor terbesar. Keputusan lokal ini dapat menghabiskan kombinasi yang diperlukan item tersisa. Delapan urutan dan pencarian 50000 node belum menutup celah tersebut. Tambahkan perbaikan beberapa kardus setelah completion, atau pencarian pola berdasarkan frekuensi bobot. Pertahankan incumbent agar kegagalan perbaikan tetap menghasilkan solusi valid.
+
+Bottleneck
+
+exact membuat tuple seluruh rooms pada setiap node. Setiap cabang juga melakukan pop dan insert pada dua list. Biayanya bertambah bersama jumlah kardus. Budget 50000 node membatasi jumlah node, tetapi belum membatasi pekerjaan per node atau memori failed. Salah satu kasus acak 180 item memerlukan sekitar 0,334 sampai 0,414 detik pada tiga pengulangan terpisah.
+
+Prioritas revisi
+
+Pertahankan pruning yang sudah benar. Gunakan kapasitas terkelompok atau histogram untuk mengurangi pergeseran list dan kunci memo. Pakai sebagian budget untuk memperbaiki incumbent sebelum exact. Tambahkan kasus triple di atas ke self-test kualitas. Pengujian ini tidak membuktikan batas runtime satu detik untuk seluruh input.

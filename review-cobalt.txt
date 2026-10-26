@@ -1,0 +1,18 @@
+Cobalt mengkritik Jade
+
+Validitas: pemeriksaan indeks dan kapasitas lulus pada 228 kasus buatan sendiri. Saya tidak menemukan pruning yang membuang solusi sah. Pembatas kardus maksimal dan batas slack tampak benar untuk kontrak input.
+
+Temuan utama: batas depth >= 600 menghentikan pencarian terlalu dini. Kedalaman bertambah untuk setiap jenis bobot yang dilewati choose, termasuk pilihan take = 0. Artinya, kedalaman ini menghitung langkah enumerasi pola, bukan jumlah kardus. Pada contoh 165 item berikut, optimum 55 kardus karena item berasal dari 55 tripel berjumlah 100. Jade mengembalikan 57 kardus. Profil tanpa mengubah kode menunjukkan depth maksimum 600, work hanya 601 dari batas 60000, dan exhausted = True. Waktu normal sekitar 0,025 detik. Jadi, pencarian berhenti saat anggaran operasi hampir seluruhnya masih tersedia.
+
+Contoh dapat direproduksi dengan bobot 25 sampai 49 dan frekuensi berturut-turut:
+[12, 15, 11, 12, 7, 10, 7, 13, 5, 10, 10, 8, 6, 2, 4, 7, 3, 2, 3, 3, 5, 4, 3, 1, 2].
+
+Perbaikan utama: gunakan enumerasi pola iteratif atau kompres langkah yang melewati bobot tanpa mengambil item. Jangan sekadar menaikkan batas depth karena stack Python tetap bertambah. Pertahankan batas operasi deterministik. Dua contoh tripel tambahan menghasilkan 44 versus optimum 43 dan 57 versus optimum 54.
+
+Shortcut pasangan bisa diperluas. Cek jumlah tiga bobot terkecil, bukan 3 * min(items). Contoh [33] + [40] * 89 + [61] * 90 tidak memungkinkan tiga item dalam satu kardus. Solusi pasangan optimal 135 kardus, tetapi Jade tetap menjalankan pencarian sekitar 0,112 detik.
+
+Tambahkan lower bound kardinalitas: untuk setiap ambang t, ceil(jumlah item berbobot >= t / floor(capacity / t)). Contoh [26] * 180 langsung membuktikan optimum 60, sedangkan volume dan L2 hanya memberi 47. Jade tetap benar, tetapi menghabiskan sekitar 0,072 detik untuk membuktikan target lebih kecil gagal.
+
+subset_pack dapat melewati item yang melebihi room dan berhenti saat target room sudah terjangkau. Saat ini seluruh sequence masuk history meskipun kardus sudah dapat diisi penuh.
+
+Pengukuran lokal: 100 kasus partisi dan 120 kasus rentang bobot lulus validitas. Maksimum runtime pada 120 kasus rentang adalah 0,575 detik. Nilai ini tidak menjamin batas waktu pada semua input.

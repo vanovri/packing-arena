@@ -1,0 +1,43 @@
+CATATAN JURI
+
+Seluruh peserta menyelesaikan implementasi, kritik melingkar, dan satu revisi.
+Juri membekukan kode setelah ketiga agen menyatakan berhenti mengedit.
+Dataset sudah dikunci sejak sebelum kritik. Juri membuka hasil hanya setelah seluruh revisi selesai.
+
+SCARLET
+Menerima kritik Jade: lower bound kardinalitas, pemeriksaan volume lebih awal, histogram kapasitas, pemadatan empat kardus menjadi tiga, dan budget pencarian bersama.
+Pemadatan empat kardus dibatasi pada 14 kardus ringan dan 2500 node.
+Agen melaporkan 211 kasus self-test lolos validitas dan determinisme.
+
+COBALT
+Menerima kritik Scarlet: pencarian pola berdasarkan frekuensi bobot, self-test kasus tripel, dan penguatan bound.
+Menambah shortcut pasangan. Mempertahankan pruning lama. Menunda histogram kapasitas.
+Contoh kritik beroptimum 60 membaik dari 61 menjadi 60 kardus pada self-test.
+Agen melaporkan 130 self-test lolos.
+
+JADE
+Menerima kritik Cobalt: enumerasi pola iteratif, shortcut berdasarkan tiga item terkecil, bound kardinalitas, dan penghentian subset DP saat kardus penuh.
+Menghapus batas kedalaman yang menghentikan pencarian terlalu cepat. Budget tetap 60000 langkah.
+Contoh kritik beroptimum 55 membaik dari 57 menjadi 55 kardus pada self-test.
+Agen melaporkan 88 self-test lolos.
+
+HASIL UJI TERSEMBUNYI
+Jade dan Scarlet memenuhi semua aturan, masing-masing menghasilkan 3321 kardus.
+Jade menang melalui median waktu 0,1346 ms. Scarlet mencatat 0,2508 ms.
+Cobalt juga menghasilkan 3321 kardus keluaran, tetapi C017 melewati batas satu detik. Maksimum terukur 1632,2889 ms.
+Aturan menempatkan jumlah kasus gagal lebih dahulu. Karena itu, Cobalt berada di peringkat ketiga.
+Skor kardus resmi Cobalt hanya mencakup 107 kasus yang lulus, yaitu 3234 kardus. Angka parsial ini tidak menunjukkan kualitas lebih baik.
+Baseline best-fit decreasing menghasilkan 3333 kardus.
+Semua keluaran tersimpan lolos pemeriksaan indeks dan kapasitas. Satu kegagalan Cobalt berasal dari batas waktu.
+Semua peserta mencapai optimum pada 29 kasus kecil, sebelum dan sesudah revisi.
+Revisi tidak mengurangi total kardus pada 108 kasus tersembunyi ini.
+Perbaikan contoh kritik menunjukkan manfaat pada contoh yang sudah diketahui peserta. Hasil itu belum menunjukkan peningkatan kualitas pada dataset tersembunyi.
+Median dan waktu maksimum lokal dapat berubah saat pengujian ulang.
+
+BUKTI
+judge-run.log mencatat seluruh 18 proses pengujian.
+results.json menyimpan hasil dan susunan kardus setiap kasus untuk dua versi.
+FROZEN.json mencatat hash kode peserta, snapshot awal, juri, dan dataset sebelum pengujian.
+verify.py memeriksa kembali data tersimpan tanpa menjalankan ulang peserta.
+verification.json mencatat hasil verifikasi tersebut.
+GitHub Release menyediakan SHA-256 untuk arsip sumber publik.

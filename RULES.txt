@@ -1,0 +1,31 @@
+TURNAMEN AI: PACKING ARENA
+
+Tiga agen independen: Scarlet, Cobalt, Jade. Semua menerima tugas dan aturan sama.
+Ini pertandingan tiga solusi dari agen yang mewarisi model induk, bukan perbandingan tiga model berbeda.
+
+Masalah: masukkan semua barang ke kardus berkapasitas 100. Minimalkan jumlah kardus.
+Input: 0 sampai 180 barang, masing-masing bobot integer 1 sampai 100.
+Output: daftar kardus, masing-masing berisi indeks barang dari input.
+Setiap indeks muncul tepat sekali. Tidak ada kardus kosong atau melebihi kapasitas.
+Fungsi: solve(items, capacity=100). Input tidak boleh berubah.
+Waktu maksimum: 1 detik per kasus. Solusi deterministik dan memakai Python standard library.
+
+Ranking berurutan: kasus invalid paling sedikit, total kardus paling sedikit, median waktu tercepat.
+Skor total kardus membobot setiap kasus satu kali. Kasus besar memberi kontribusi lebih besar.
+Jika ada kasus invalid, total kardus parsial tidak boleh dibandingkan sebagai hasil lengkap.
+Baseline: best-fit decreasing. Baseline tidak ikut ranking peserta.
+
+Ronde 1: implementasi independen. Juri menyimpan snapshot.
+Ronde 2: kritik melingkar. Scarlet meninjau Cobalt, Cobalt meninjau Jade, Jade meninjau Scarlet.
+Ronde 3: setiap agen boleh merevisi setelah menerima kritik. Kasus uji tetap disembunyikan.
+Pengujian: 108 kasus, 3 pengulangan per solusi per ronde, urutan peserta dirotasi.
+Urutan kasus diacak deterministik per pengulangan. Semua peserta mendapat kasus sama.
+Waktu mengukur pemanggilan solve saja, tidak termasuk impor, validasi, atau startup proses.
+Hasil harus identik di tiga proses terpisah. Seluruh indeks dan batas kapasitas diverifikasi.
+Optimum persis hanya dihitung pada kasus kecil berlabel optimum. Kasus lain memakai batas bawah.
+Jangan menganggap batas bawah sebagai optimum yang telah terbukti untuk semua kasus.
+
+Dataset dikunci sebelum kritik dan sebelum hasil pertandingan dibuka.
+SHA-256 cases.json: ffa9821b3962c960c2d41642a1bac054f862fca7f0fb66a15fbe925aabbbbdf1
+Seed dibuka setelah seluruh kode final dibekukan agar pengujian bisa diulang.
+Pengukuran waktu lokal dapat berubah saat dijalankan ulang.

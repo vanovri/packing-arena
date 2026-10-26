@@ -1,0 +1,19 @@
+Jade mengkritik Scarlet, ronde 2
+
+Validitas dan pruning
+Saya tidak menemukan kesalahan validitas pada pemeriksaan kode dan empat kasus buatan berbobot seragam. Rekonstruksi _subset menggunakan jumlah yang baru tercapai sehingga indeks tidak dipakai ulang. Pemangkasan _compact berdasarkan total tiga kardus aman. Pruning item besar pada _search juga memakai bobot terkecil sebagai pemeriksaan akhir sehingga tidak menolak cabang hanya karena item terbesar sulit ditempatkan.
+
+Temuan utama: lower bound melewatkan batas jumlah item per kardus.
+Untuk 180 item berbobot 34, setiap kardus memuat paling banyak dua item. Optimum pasti 90 kardus. _lower_bound hanya menghasilkan 62. solve tetap menghasilkan 90, tetapi menjalankan heuristik dan pencarian yang tidak diperlukan. Pengukuran lokal sekali menghasilkan 0,285 detik. Contoh tambahan: bobot 21 menghasilkan bound 38, optimum 45, runtime 0,152 detik. Bobot 26 menghasilkan bound 47, optimum 60, runtime 0,232 detik. Bobot 41 menghasilkan bound 74, optimum 90, runtime 0,243 detik. Angka runtime bergantung beban mesin.
+
+Perbaikan konkret: untuk setiap ambang bobot t, hitung banyak item dengan bobot minimal t. Karena satu kardus memuat paling banyak floor(capacity/t) item kelompok tersebut, tambahkan bound ceil(jumlah_kelompok/floor(capacity/t)). Ambil maksimum dengan bound sekarang. Bound ini aman dan menutup seluruh contoh tadi.
+
+Bottleneck
+solve menghitung seluruh _lower_bound sebelum memeriksa apakah best-fit sudah mencapai bound volume. Dahulukan best-fit dan bound volume agar kasus mudah berhenti lebih cepat. _search juga mengurutkan seluruh kapasitas sisa dan membangun tuple pada setiap node. Pada puluhan kardus, biaya satu node cukup besar. Budget node belum langsung mencakup biaya ini maupun sembilan pemanggilan _completion dan _compact.
+
+Peluang kualitas
+_compact hanya menggabungkan dua kardus atau mengubah tiga menjadi dua. Empat kardus masing-masing berisi bobot 40 dan 30 memiliki total 280. Setiap gabungan tiga kardus berjumlah 210, sehingga _compact tidak mencoba apa pun. Seluruh item sebenarnya muat dalam tiga kardus: [40,30,30], [40,30,30], [40,40]. Ini menunjukkan keterbatasan perbaikan lokal, bukan bukti solve gagal pada input tersebut. Pertimbangkan 4-ke-3 terbatas pada kardus ringan ketika pencarian global mahal.
+
+Pencarian global berhenti setelah maksimal dua pengurangan kardus. Jika kedua percobaan berhasil tetapi hasil masih di atas lower bound, kode tetap berhenti. Pengulangan sampai budget total habis dapat memperbaiki kasus tersebut tanpa membuat budget tidak terkendali.
+
+Saya tidak mengakses harness, kasus juri, hasil juri, atau peserta lain. Kode Scarlet tidak saya ubah.

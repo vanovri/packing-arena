@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "dataset_cases": 108,
+  "saved_packings_checked": 648,
+  "exact_optimum_checks": 174,
+  "oracle_crosscheck_cases": 60,
+  "solve_calls_in_official_run": 1944,
+  "repetitions": 3,
+  "contestants_and_dataset_unchanged": true,
+  "scoring_errors": [
+    {
+      "phase": "final",
+      "name": "cobalt",
+      "case": "C017",
+      "error": "Exceeded 1 second",
+      "max_ms": 1632.2889
+    }
+  ]
+}
